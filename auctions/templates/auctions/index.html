@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<!-- <h2 class="py-3 m-3">Auction Listings</h2> -->
+
+<div class="items-list">
+    {% for obj in objects %}
+    <a href="{% url 'details' obj.id %}">
+        <div class="item text-center" {% if obj.active != True %}style="background-color: rgba(0, 0, 0, 0.500);"
+            {% endif %}>
+            <img src="{{ obj.imageUrl }}" alt="Loading...">
+            <div class="details">
+                <h5>{{ obj.name }}</h5>
+                <h6>Price: $<strong>{{ obj.startBid }}</strong></h6>
+                <small>Created: <strong>{{ obj.date|date:"d-m-Y" }}</strong></small><br>
+                {% if obj.active %}
+                <span class="badge status--active">Active</span>
+                {% else %}
+                <span class="badge status--inactive">Ended</span>
+                {% endif %}
+                <!-- {% if obj in user.watchlist.all %}
+                <span class="badge status--watching">Watching</span>
+                {% else %}
+                <span class="badge status--notwatching">Not Watching</span>
+                {% endif %} -->
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <div class="alert alert-info text-center p-4 my-4 mx-2">No items Available</div>
+    {% endfor %}
+</div>
+{% endblock %}
