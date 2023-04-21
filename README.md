@@ -1,6 +1,6 @@
 # TG-Auction-bid-system
 
-<a href="http://165.232.66.68:8000/all" target="_blank">temp link</a>
+<a href="http://tuzovauction.com" target="_blank">link</a>
 
 <hr>
 
