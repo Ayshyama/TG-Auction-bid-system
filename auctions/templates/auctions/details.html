@@ -26,11 +26,13 @@
     {% endfor %}
 
     <section class="my-3">
-        {% if messages %}
+        <!-- {% if messages %}
         {% for message in messages %}
         <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
         {% endfor %}
-        {% endif %}
+        {% endif %} -->
+
+
 
         {% if bid and item.active == False %}
 
@@ -42,6 +44,14 @@
             {% endif %}
         </div>
 
+        {% endif %}
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
         {% endif %}
 
         {% if item.active and user.is_authenticated %}
@@ -68,6 +78,7 @@
             <li>Listed By: <strong>{{ item.user.username }}</strong></li>
             <li>Category: <strong>{{ item.category.name }}</strong></li>
             <li>Listed On: <strong>{{ item.date }}</strong></li>
+            <li>End Date: <strong>{{ item.end_date }}</strong></li>
         </ul>
     </section>
 
@@ -110,6 +121,148 @@
         {% endif %}
     </section> -->
 
+    <style>
+        .btn {
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 0.25rem;
 
-</div>
-{% endblock %}
+            
+        }FF6347
+
+        .btn-primary {
+            background-color: #0069d9;
+            color: #fff;
+            /* border-color: #000000; */
+            border: 1px solid black;
+        }
+        .btn-warning {
+            background-color: #FF4500;
+            color: #fff;
+            /* border-color: #000000; */
+            border: 1px solid black;
+        }
+        .btn-warning:hover {
+            background-color: #FF6347;
+            color: #fff;
+            border-color: #FF6347;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.100), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+
+    
+
+        .btn-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #0062cc;
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.100), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+
+        .button-row-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            /* set a maximum width for the container */
+            margin: 0 auto;
+            /* center the container */
+        }
+
+        .button-row {
+            font-family: "Allerta Stencil", Gadget, sans-serif;
+            display: inline-block;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #f1f1f100;
+            color: #ffffff;
+            cursor: pointer;
+            width: 100%;
+            max-width: 700px;
+            transition: 0.5s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.400);
+            border-radius: 0.25rem;
+
+            border: 1px solid black;
+        }
+
+        .button-row:hover {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.100), 0 6px 6px rgba(0, 0, 0, 0.23);
+            /* margin: 8px 10px 12px; */
+            background-position: right center;
+        }
+
+        .button-raw:focus {
+            outline: none;
+        }
+
+        .back {
+            margin-right: 0;
+            /* align to the left */
+            width: auto;
+            /* Set width to auto */
+
+        }
+
+        .home {
+            margin: 0 auto;
+            flex-grow: 1;
+            /* take up remaining space */
+            width: auto;
+            /* Set width to auto */
+        }
+
+        .next {
+            margin-left: 0;
+            /* align to the right */
+            width: auto;
+            /* Set width to auto */
+        }
+    </style>
+
+
+    <hr>
+    <br>
+
+    <div class="button-row-container">
+        <a href="#" id="back-link">
+            <input class="button-row back" type="button" value="Back">
+        </a>
+
+        <a href="http://tuzovauction.com/all">
+            <input class="button-row home" type="button" value="Home">
+        </a>
+
+        <a href="#" id="next-link">
+            <input class="button-row next" type="button" value="Next">
+        </a>
+    </div>
+
+
+    <script>
+
+        var currentUrl = window.location.href;
+
+        // extract the number from the current URL
+        var num = parseInt(currentUrl.match(/details\/(\d+)/)[1]);
+
+        // generate the URL for the back button
+        var backNum = num - 1;
+        var backUrl = backNum > 0 ? "http://tuzovauction.com/details/" + backNum : "";
+        document.querySelector(".back").href = backUrl;
+
+        // generate the URL for the next button
+        var nextNum = num + 1;
+        var nextUrl = "http://tuzovauction.com/details/" + nextNum;
+        document.querySelector(".next").href = nextUrl;
+
+    </script>
+
+    <br>
+
+
+    {% endblock %}

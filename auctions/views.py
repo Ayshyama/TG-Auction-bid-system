@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-
+from decimal import Decimal
 from .models import User, Category, AuctionListing, Bid, Comment
 
 
@@ -113,7 +113,6 @@ def details(request, id):
         'bid': bid
     })
 
-
 def categories(request):
     if request.method == 'POST':
         category = request.POST["category"]
@@ -151,23 +150,35 @@ def comment(request, id):
     return HttpResponseRedirect(reverse("index"))
 
 
+
 @login_required
 def bid(request, id):
     if request.method == 'POST':
         auctionListing = AuctionListing.objects.get(id=id)
-        bidValue = request.POST["bid"]
+        bidValue = request.POST.get("bid")
+        if not bidValue:
+            messages.warning(request, 'Please enter a bid value!')
+            return HttpResponseRedirect(reverse("details", kwargs={'id': id}))
+        try:
+            bidValue = float(bidValue)
+        except ValueError:
+            messages.warning(request, 'Please enter a valid bid value!')
+            return HttpResponseRedirect(reverse("details", kwargs={'id': id}))
         args = Bid.objects.filter(auctionListing=auctionListing)
         value = args.aggregate(Max('bidValue'))['bidValue__max']
         if value is None:
             value = 0
-        if float(bidValue) < auctionListing.startBid or float(bidValue) <= value:
-            messages.warning(
-                request, f'Bid Higher than: {max(value, auctionListing.startBid)}!')
+        if bidValue < auctionListing.startBid or bidValue <= value:
+            messages.warning(request, f'Bid higher than: {max(value, auctionListing.startBid)}!')
+            return HttpResponseRedirect(reverse("details", kwargs={'id': id}))
+        if bidValue > 1000000:
+            messages.warning(request, 'Maximum bid value is 1000000!')
             return HttpResponseRedirect(reverse("details", kwargs={'id': id}))
         user = request.user
         bid = Bid.objects.create(
             date=timezone.now(), user=user, bidValue=bidValue, auctionListing=auctionListing)
         bid.save()
+        messages.success(request, 'Bid placed successfully!')
     return HttpResponseRedirect(reverse("details", kwargs={'id': id}))
 
 

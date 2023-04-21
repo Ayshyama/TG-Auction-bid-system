@@ -19,6 +19,7 @@ img {
     width: auto;
 }
 
+
 .gradient-button {
     margin: 10px;
     font-family: "Allerta Stencil", Gadget, sans-serif;
@@ -32,10 +33,11 @@ img {
     box-shadow: 0 0 20px #eee;
     width: 200px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    transition: all 0.5s cubic-bezier(.25, .8, .25, 1);
     cursor: pointer;
     display: inline-block;
-    border-radius: 20px;
+    border-radius: 0.25rem;
+    border: 1px solid black;
 }
 
 .gradient-button:hover {
@@ -72,7 +74,7 @@ img {
     height: 4rem;
     /* background-color: rgba(255, 255, 255, 0); */
     border: 3px solid rgb(255, 230, 186);
-    border-radius: 1rem;
+    border-radius: 0.25rem;
     display: grid;
     align-content: center;
 }
@@ -103,10 +105,13 @@ img {
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     grid-gap: 25px;
     /* background-color: rgba(0, 0, 0, 0.500); */
-    -webkit-backdrop-filter: blur(15px); /* For Safari and some versions of Chrome */
-    backdrop-filter: blur(15px);
-    padding: 30px;
-    border-radius: 1%;
+    -webkit-backdrop-filter: blur(35px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(35px);
+    /* Standard syntax */
+    padding: 25px;
+    border-radius: 0.25rem;
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.300);
 }
 
 @media only screen and (max-width: 490px) {
@@ -115,25 +120,25 @@ img {
     }
 }
 
-@supports (not (backdrop-filter: blur(15px))) and
-(not (-webkit-backdrop-filter: blur(15px)))  {
+@supports (not (backdrop-filter: blur(35px))) and (not (-webkit-backdrop-filter: blur(35px))) {
     .navbar {
-    background-color: hls(0, 0%, 100%, 0.8);
+        background-color: hls(0, 0%, 100%, 0.8);
     }
 }
 
 .item {
+    background-color: rgba(93, 0, 255, 0.135);
     background: rgba(0, 0, 0, 0.500);
-    padding: 60px;
+    padding: 50px;
     display: grid;
     grid-template-rows: 2.5fr 1fr;
-    -webkit-backdrop-filter: blur(15px); /* For Safari and some versions of Chrome */
-    backdrop-filter: blur(15px); /* Standard syntax */
-    border-radius: 1%;
+    /* -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px); */
+    border-radius: 0.25rem;
     position: relative;
 }
 
-.item:hover img{
+.item:hover img {
     transform: scale(1.10);
 }
 
@@ -142,25 +147,46 @@ img {
     height: 100%;
     position: relative;
     object-fit: cover;
-    transition: 0.4s;
+    transition: 0.5s;
 }
 
 .navbar {
-    -webkit-backdrop-filter: blur(15px); /* For Safari and some versions of Chrome */
-    backdrop-filter: blur(15px); /* Standard syntax */
-    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.253);
+    -webkit-backdrop-filter: blur(35px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(35px);
+    /* Standard syntax */
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.150);
     width: 100%;
-    height: 150px;
+    height: 142px;
+    transition: top 0.5s ease-in-out;
 }
+
+.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+footer {
+    -webkit-backdrop-filter: blur(35px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(35px);
+    /* Standard syntax */
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.200);
+    width: 100%;
+    height: 198Spx;
+    color: #333;
+    padding: 30px;
+    margin-top: auto;
+}
+
 
 .navbar-brand {
     font-size: 3rem;
-  }
-  
+}
+
 
 .badge {
     padding: 0.3rem 0.6rem;
-    border-radius: 1rem;
+    border-radius: 0.25rem;
 }
 
 .status--active {
@@ -189,20 +215,36 @@ body {
     background-repeat: no-repeat;
     background-position: initial;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
 .inout {
-    background-color: rgba(0, 0, 0, 0.500);
-    -webkit-backdrop-filter: blur(15px); /* For Safari and some versions of Chrome */
-    backdrop-filter: blur(15px);
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.250);
+    background-color: rgba(0, 0, 0, 0.00);
+    -webkit-backdrop-filter: blur(35px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(35px);
+    /* Standard syntax */
     color: white;
 }
 
+main {
+    flex: 1;
+}
+
+html,
+body {
+    height: 100%;
+}
+
 .detail-page {
-    padding: 3rem;
+    padding: 30px;
     background-color: rgba(0, 0, 0, 0.500);
-    -webkit-backdrop-filter: blur(15px); /* For Safari and some versions of Chrome */
-    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(35px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(35px);
+    border-radius: 0.25rem;
 }
 
 .comment {
@@ -234,8 +276,31 @@ body {
 * {
     font-family: 'Allerta Stencil';
     color: white;
-}   
+}
 
 .register-link {
     color: #3a7bd5;
 }
+
+
+.messages {
+    margin: 20px 0;
+    padding: 0;
+    border-radius: 0.25rem;
+  }
+  
+  .messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+    color: #fff;
+    border-radius: 0.25rem;
+  }
+  
+  .messages li.warning {
+    background-color: #f44336;
+  }
+  
+  .messages li.success {
+    background-color: #4CAF50;
+  }
